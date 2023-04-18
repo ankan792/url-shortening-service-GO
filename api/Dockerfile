@@ -16,8 +16,6 @@ RUN mkdir build_app
 
 COPY --from=builder /app/main /build_app/
 
-# COPY --from=builder /app/.env /build_app/
-
 WORKDIR /build_app
 
 EXPOSE 3000
