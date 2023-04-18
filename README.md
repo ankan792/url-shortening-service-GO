@@ -22,14 +22,21 @@ To test the API, you can use Postman or run the following commands in the termin
 This will make a Post request to the `/api/v1` endpoint, returning:
 ```
 {
-    "url": "<THE URL YOU WANT TO BE SHORTENED>",
-    "short_url": "localhost:3000/<SOME RANDOM ID>",
+    "url": "THE URL YOU WANT TO BE SHORTENED",
+    "short_url": "localhost:3000/SOME_RANDOM_ID",
     "expiry": 24,
     "rate_remaining": 10,
     "rate_reset": 30
 }
 ```
-You can make a GET request using curl ```localhost:3000/<SOME RANDOM ID>``` or you can also access the shortened URL directly in your browser and it will redirect you to the original URL.
+To make your own custom ID, specify short_url in the json body request along with the actual url as:
+```
+{
+    "url": "THE URL YOU WANT TO BE SHORTENED",
+    "short_url": "YOUR_CUSTOM_ID"
+}
+```
+You can make a GET request using curl ```localhost:3000/SOME_RANDOM_ID``` or you can also access the shortened URL directly in your browser and it will redirect you to the original URL.
 
 To the stop the project run ```docker-compose down```. This will stop and remove the containers.
 
