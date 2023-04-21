@@ -13,6 +13,8 @@ import (
 func setupRoutes(app *fiber.App) {
 	app.Post("/api/v1", routes.ShortenURL)
 	app.Get(":id", routes.ResolveURL)
+	//serve static
+	app.Static("/", "./static")
 }
 
 func main() {

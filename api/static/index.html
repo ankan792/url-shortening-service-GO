@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>URL Shortening Service</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+</head>
+<body class="bg-gray-100">
+    <div class="container mx-auto p-4 md:p-8">
+        <h1 class="text-3xl md:text-4xl font-bold mb-4 text-center">URL Shortening Service</h1>
+        <form id="shorten-form" class="bg-white p-4 md:p-6 rounded shadow-md">
+            <div class="flex flex-col md:flex-row items-center mb-4">
+                <label for="url" class="block text-gray-700 font-bold mr-2 mb-2 md:mb-0 w-full md:w-1/4">Enter URL:</label>
+                <input type="text" id="url" name="url" class="w-full border border-gray-300 p-2 rounded mr-2">
+            </div>
+
+            <div id="custom-url-section" class="flex flex-col md:flex-row items-center hidden mb-4">
+                <label for="alias" class="block text-gray-700 font-bold mb-2 w-full md:w-1/4 mr-2">Enter custom alias:</label>
+                <input type="text" id="alias" name="alias" class="w-full border border-gray-300 p-2 rounded mr-2">
+            </div>
+
+            <div class="flex justify-center flex-wrap">
+                <input type="submit" value="Shorten" class="bg-blue-500 text-white font-bold py-2 px-4 rounded hover:bg-blue-700 cursor-pointer mt-2 md:mt-0 mr-2">
+                <input type="button" value="Enter Custom URL" id="custom-url-button" class="bg-green-500 text-white font-bold py-2 px-4 rounded hover:bg-green-700 cursor-pointer mt-2 md:mt-0">
+            </div>
+        </form>
+        <div id="response" class="hidden mt-4 bg-white p-4 md:p-6 rounded shadow-md">
+            <p id="error-message" class="text-red-500"></p>
+            <div class="border-b border-gray-200 mb-2 pb-2">
+                <span class="font-bold text-gray-700">Shortened URL:</span>
+                <a href="#" id="short-url" class="text-blue-500 hover:underline ml-2"></a>
+            </div>
+            <div class="border-b border-gray-200 mb-2 pb-2">
+                <span class="font-bold text-gray-700">Expires in:</span>
+                <span id="expiry" class="ml-2"></span>
+            </div>
+            <div class="border-b border-gray-200 mb-2 pb-2">
+                <span class="font-bold text-gray-700">Rate remaining:</span>
+                <span id="rate-limit" class="ml-2"></span>
+            </div>
+            <div>
+                <span class="font-bold text-gray-700">Limit resets in (minutes):</span>
+                <span id="reset-time" class="ml-2"></span>
+            </div>
+        </div>
+    </div>
+    <script src="./js/script.js"></script>
+    <script>
+            document.getElementById("custom-url-button").addEventListener("click", function() {
+            document.getElementById("custom-url-section").classList.toggle("hidden");
+        });
+
+        document.getElementById("shorten-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            document.getElementById("response").classList.remove("hidden");
+            document.getElementById("response").classList.add("animate__animated", "animate__fadeIn");
+        });
+    </script>
+</body>
+</html>

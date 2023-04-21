@@ -43,26 +43,26 @@ func ShortenURL(c *fiber.Ctx) error {
 	if err == redis.Nil {
 		db.Set(database.Ctx, c.IP(), os.Getenv("API_QUOTA"), 30*60*time.Second)
 	} else if err != nil {
-		return c.Status(fiber.StatusInternalServerError).SendString("Failed to connect to DB!")
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to connect to DB!"})
 	}
 	valIP, _ := db.Get(database.Ctx, c.IP()).Result()
 	valIPInt, _ := strconv.Atoi(valIP)
 	limit, _ := db.TTL(database.Ctx, c.IP()).Result()
 	if valIPInt <= 0 {
 		return c.Status(fiber.StatusServiceUnavailable).JSON(fiber.Map{
-			"error":       "limit for API calls has exceeded!",
+			"error":       "Limit for API calls has exceeded!",
 			"limit_reset": limit / time.Minute,
 		})
 	}
 
 	//check whether the url is an actual url
 	if !govalidator.IsURL(body.URL) {
-		return c.Status(fiber.StatusBadRequest).SendString("Invalid URL")
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "Invalid URL"})
 	}
 
 	//check for domain errors
 	if !helpers.ContainsDomainError(body.URL) {
-		return c.Status(fiber.StatusBadRequest).SendString("That is already a " + os.Getenv("DOMAIN") + " link")
+		return c.Status(fiber.StatusBadRequest).JSON(fiber.Map{"error": "That is already a " + os.Getenv("DOMAIN") + " link"})
 	}
 
 	//enforce http
@@ -80,7 +80,7 @@ func ShortenURL(c *fiber.Ctx) error {
 
 	val, _ := db.Get(database.Ctx, id).Result()
 	if val != "" {
-		return c.Status(fiber.StatusForbidden).SendString("custom URL already in use")
+		return c.Status(fiber.StatusForbidden).JSON(fiber.Map{"error": "Custom URL already in use"})
 	}
 
 	if body.Expiry == 0 {
@@ -89,7 +89,7 @@ func ShortenURL(c *fiber.Ctx) error {
 
 	err = db.Set(database.Ctx, id, body.URL, body.Expiry*time.Hour).Err()
 	if err != nil {
-		return c.Status(fiber.StatusInternalServerError).SendString("Something went wrong!")
+		return c.Status(fiber.StatusInternalServerError).JSON(fiber.Map{"error": "Failed to connect to DB!"})
 	}
 
 	resp := Response{
@@ -105,7 +105,7 @@ func ShortenURL(c *fiber.Ctx) error {
 
 	resp.XRateRemaining = valIPInt
 	resp.XRateLimitReset = limit / time.Minute
-	resp.ShortURL = os.Getenv("DOMAIN") + "/" + id
+	resp.ShortURL = "http://" + os.Getenv("DOMAIN") + "/" + id
 
 	return c.Status(fiber.StatusOK).JSON(resp)
 }
