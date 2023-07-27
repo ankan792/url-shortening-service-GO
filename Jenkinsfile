@@ -14,8 +14,7 @@ pipeline{
         stage('Build docker image'){
             steps{
                 sh '''
-                    cd ./api
-                    docker build -t karma792/url-shortener:$BUILD_NUMBER .
+                    docker build -t karma792/url-shortener:$BUILD_NUMBER ./api/
                 '''
             }
         }
@@ -35,6 +34,21 @@ pipeline{
                 sh ''' 
                     /usr/local/bin/ansible --version 
                     /usr/local/bin/ansible-galaxy collection install community.docker
+                '''
+            }
+        }
+        stage('ansible-install docker on target'){
+            steps{
+                sh '''
+                    cd ansible
+                    /usr/local/bin/ansible-playbook playbooks/playbook-docker-install.yml
+                '''
+            }
+        }
+        stage('ansible-run webapp'){
+            steps{
+                sh '''
+                    /usr/local/bin/ansible-playbook playbooks/playbook-mywebapp-container.yml
                 '''
             }
         }
