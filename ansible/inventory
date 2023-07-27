@@ -1,2 +1,2 @@
 [web_app]
-44.201.143.59        ansible_ssh_private_key=/home/ansibleuser/.ssh/id_rsa                
+44.201.143.59        ansible_ssh_private_key_file=/home/ansibleuser/.ssh/id_rsa                
