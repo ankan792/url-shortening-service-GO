@@ -1,0 +1,27 @@
+---
+- name: deploy docker container
+  hosts: all
+  tasks:
+    - name: pull docker image
+      community.docker.docker_container:
+        name: url-shortener
+        image: karma792/url-shortener
+        ports:
+          - "5000:5000"
+        env:
+         APP_PORT=":3000"
+         DOMAIN="localhost:3000"
+         DB_ADDRESS="localhost:6379"
+         DB_PASSWORD=""
+         API_QUOTA=10
+        restart_policy: always
+
+    - name: deploy redis db
+      community.docker.docker_container:
+        name: redisdb
+        image: redis:alpine
+        ports:
+          - "6379:6379"
+        volumes:
+          - ./data:/data
+        restart_policy: always
