@@ -41,7 +41,7 @@ pipeline{
             steps{
                 sh '''
                     cd ansible
-                    /usr/local/bin/ansible-playbook playbooks/playbook-docker-install.yml
+                    /usr/local/bin/ansible-playbook playbooks/playbook-docker-install.yml -vvv
                 '''
             }
         }
