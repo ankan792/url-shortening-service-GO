@@ -20,6 +20,6 @@ COPY --from=builder /app/static /build_app/static/
 
 WORKDIR /build_app
 
-EXPOSE 3000
+EXPOSE 5000
 
 CMD ["./main"]
