@@ -39,7 +39,7 @@ pipeline{
         }
         stage('ansible-install docker on target'){
             steps{
-                sh 'cd ansible && ansible-playbook ansible/playbooks/playbook-docker-install.yml'
+                sh 'cd ansible && ansible-playbook playbooks/playbook-docker-install.yml'
             }
         }
         stage('ansible-run webapp'){
