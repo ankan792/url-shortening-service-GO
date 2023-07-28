@@ -10,6 +10,7 @@
     
     - name: Configure yum repository for docker
       yum_repository:
+        name: docker
         baseurl: https://download.docker.com/linux/centos/docker-ce.repo
         state: present
         gpgcheck: true
