@@ -8,7 +8,7 @@
     - name: pull docker image
       community.docker.docker_container:
         name: url-shortener
-        image: karma792/url-shortener:"{{img_id}}"
+        image: karma792/url-shortener:{{img_id}}
         ports:
           - "5000:5000"
         env:
