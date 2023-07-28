@@ -11,12 +11,6 @@
         image: karma792/url-shortener:{{img_id}}
         ports:
           - "5000:5000"
-        env:
-         APP_PORT=":3000"
-         DOMAIN="localhost:3000"
-         DB_ADDRESS="localhost:6379"
-         DB_PASSWORD=""
-         API_QUOTA=10
         restart_policy: always
 
     - name: deploy redis db
@@ -26,5 +20,5 @@
         ports:
           - "6379:6379"
         volumes:
-          - ./data:/data
+          - redis_data:/data
         restart_policy: always
