@@ -16,8 +16,6 @@
           - "5000:5000"
         networks:
           - name: mywebapp_net
-        volumes:
-          - /var/run/docker.sock:/var/run/docker.sock
         restart_policy: always
 
     - name: deploy redis db
