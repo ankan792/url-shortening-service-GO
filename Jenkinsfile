@@ -32,8 +32,8 @@ pipeline{
         stage('Ansible'){
             steps{
                 sh ''' 
-                    /usr/local/bin/ansible --version 
-                    /usr/local/bin/ansible-galaxy collection install community.docker
+                    ansible --version 
+                    ansible-galaxy collection install community.docker
                 '''
             }
         }
@@ -41,15 +41,13 @@ pipeline{
             steps{
                 sh '''
                     cd ansible
-                    /usr/local/bin/ansible-playbook playbooks/playbook-docker-install.yml -vvv
+                    ansible-playbook playbooks/playbook-docker-install.yml 
                 '''
             }
         }
         stage('ansible-run webapp'){
             steps{
-                sh '''
-                    /usr/local/bin/ansible-playbook playbooks/playbook-mywebapp-container.yml
-                '''
+                sh 'ansible-playbook playbooks/playbook-mywebapp-container.yml'
             }
         }
 
