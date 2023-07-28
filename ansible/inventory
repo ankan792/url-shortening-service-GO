@@ -1,1 +1,2 @@
-web_app  192.168.29.72       ansible_ssh_private_key_file=~/.ssh/id_rsa                
+[web_app]
+192.168.29.72       ansible_ssh_private_key_file=~/.ssh/id_rsa                
