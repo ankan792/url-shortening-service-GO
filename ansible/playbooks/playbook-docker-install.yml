@@ -19,7 +19,7 @@
     
     - name: Install Docker
       yum:
-        name: '{{ item }}'
+        name: "{{ item }}"
         loop:
           - docker-ce 
           - docker-ce-cli 
