@@ -2,11 +2,13 @@
 - name: deploy docker container
   hosts: all
   become: true
+  vars:
+   img_id: "{{lookup('env', 'BUILD_NUMBER')}}"
   tasks:
     - name: pull docker image
       community.docker.docker_container:
         name: url-shortener
-        image: karma792/url-shortener
+        image: karma792/url-shortener:"{{img_id}}"
         ports:
           - "5000:5000"
         env:
