@@ -11,6 +11,8 @@
         image: karma792/url-shortener:{{img_id}}
         ports:
           - "5000:5000"
+        volumes:
+          - /var/run/docker.sock:/var/run/docker.sock
         restart_policy: always
 
     - name: deploy redis db
