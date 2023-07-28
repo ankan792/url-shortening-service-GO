@@ -20,14 +20,16 @@
     - name: Install Docker
       yum:
         name: "{{ item }}"
-        loop:
-          - docker-ce 
-          - docker-ce-cli 
-          - containerd.io 
-          - docker-buildx-plugin 
-          - docker-compose-plugin
         state: present
         update_cache: yes
+      loop:
+         - docker-ce 
+         - docker-ce-cli 
+         - containerd.io 
+         - docker-buildx-plugin 
+         - docker-compose-plugin
+    
+        
 
     - name: start docker service
       service:
