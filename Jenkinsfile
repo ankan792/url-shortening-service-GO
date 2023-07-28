@@ -14,7 +14,7 @@ pipeline{
         stage('Build docker image'){
             steps{
                 sh '''
-                    docker build -t karma792/url-shortener:$BUILD_NUMBER ./api/
+                    docker build -t karma792/url-shortener:$BUILD_NUMBER ./api/ --no-cache
                 '''
             }
         }
@@ -48,5 +48,10 @@ pipeline{
             }
         }
 
+    }
+    post{
+        always{
+            sh 'docker system prune -a -f'
+        }
     }
 }
