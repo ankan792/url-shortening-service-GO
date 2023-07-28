@@ -15,7 +15,7 @@
 
     - name: deploy redis db
       community.docker.docker_container:
-        name: redisdb
+        name: redis_db
         image: redis:alpine
         ports:
           - "6379:6379"
