@@ -1,6 +1,7 @@
 ---
 - name: deploy docker container
   hosts: all
+  become: true
   tasks:
     - name: pull docker image
       community.docker.docker_container:
