@@ -5,12 +5,17 @@
   vars:
    img_id: "{{lookup('env', 'BUILD_NUMBER')}}"
   tasks:
+    - name: create network
+      community.docker.docker_network:
+        name: mywebapp_net
     - name: pull docker image
       community.docker.docker_container:
         name: url-shortener
         image: karma792/url-shortener:{{img_id}}
         ports:
           - "5000:5000"
+        networks:
+          - name: mywebapp_net
         volumes:
           - /var/run/docker.sock:/var/run/docker.sock
         restart_policy: always
@@ -21,6 +26,8 @@
         image: redis:alpine
         ports:
           - "6379:6379"
+        networks:
+          - name: mywebapp_net
         volumes:
           - redis_data:/data
         restart_policy: always
