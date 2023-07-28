@@ -3,10 +3,10 @@
   hosts: all
   become: true
   tasks:
-   # - name: Install yum essentials
-   #   yum:
-   #     name: yum-utils
-   #     state: latest
+    - name: Install yum essentials
+      yum:
+        name: yum-utils
+        state: latest
 
     - name: Configure yum repository for docker
       yum_repository:
