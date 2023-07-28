@@ -7,33 +7,23 @@
       yum:
         name: yum-utils
         state: latest
-    
-    - name: Configure yum repository for docker
+
+    - name: Configure dnf repository for docker
       yum_repository:
         name: docker
         description: 'yum repo for docker'
-        baseurl: https://download.docker.com/linux/centos/docker-ce.repo
+        baseurl: https://download.docker.com/linux/fedora/docker-ce.repo
         state: present
         gpgcheck: true
-        gpgkey: https://download.docker.com/linux/centos/gpg
-    
+
     - name: Install Docker
       yum:
-        name: "{{ item }}"
+        name: docker
         state: present
         update_cache: yes
-      loop:
-         - docker-ce 
-         - docker-ce-cli 
-         - containerd.io 
-         - docker-buildx-plugin 
-         - docker-compose-plugin
-    
-        
 
     - name: start docker service
       service:
         name: docker
         state: started
-        enabled: yes
       
