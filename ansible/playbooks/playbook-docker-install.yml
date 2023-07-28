@@ -8,7 +8,7 @@
         name: yum-utils
         state: latest
 
-    - name: Configure dnf repository for docker
+    - name: Configure yum repository for docker
       yum_repository:
         name: docker
         description: 'yum repo for docker'
@@ -22,7 +22,7 @@
         state: present
         update_cache: yes
 
-    - name: start docker service
+    - name: Start docker service
       service:
         name: docker
         state: started
