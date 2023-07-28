@@ -14,7 +14,7 @@ FROM alpine
 
 RUN mkdir build_app
 
-COPY --from=builder /app/main /app/.env /app/static /build_app
+COPY --from=builder /app/main /app/.env /app/static /build_app/
 
 WORKDIR /build_app
 
