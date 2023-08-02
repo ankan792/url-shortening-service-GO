@@ -38,7 +38,7 @@ To make your own custom ID, specify short_url in the json body request along wit
 ```
 You can make a GET request using curl ```localhost:3000/SOME_RANDOM_ID``` or you can also access the shortened URL directly in your browser and it will redirect you to the original URL.
 
-To the stop the project run ```docker-compose down```. This will stop and remove the containers.
+To stop the project run ```docker-compose down```. This will stop and remove the containers.
 
 The project contains a `.env` file where you can change the domain name according to where you deploy the service and other variables like the database credentials, the port where the service will run and the quota limit.
 
